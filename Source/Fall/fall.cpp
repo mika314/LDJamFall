@@ -3,4 +3,4 @@
 #include "fall.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, Fall, "Fall" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, Fall, "Fall");
