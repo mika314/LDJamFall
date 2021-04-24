@@ -1,10 +1,10 @@
 #pragma once
 #include <cstdint>
 
-class Note
+class MidiNote
 {
 public:
-  Note(int note, uint32_t duration, uint32_t startTime);
+  MidiNote(int note, uint32_t duration, uint32_t startTime);
   int note() const;
   uint32_t startTime() const;
   uint32_t duration() const;

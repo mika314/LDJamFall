@@ -1,12 +1,12 @@
 #pragma once
-#include "note.h"
+#include "midi_note.h"
 #include <string>
 #include <vector>
 
 class MidiParser
 {
 public:
-  std::vector<Note> parse(std::istream &strm);
+  std::vector<MidiNote> parse(std::istream &strm);
   int tempo() const;
 
 private:
@@ -14,7 +14,7 @@ private:
   void parseMidiEvents(std::istream &strm);
   unsigned tempo_ = 461538;
   unsigned tickPerBit_ = 768;
-  std::vector<Note> notes_;
+  std::vector<MidiNote> notes_;
   unsigned currentTime_;
   int currentNote_;
   uint32_t currentStartTime_;

@@ -23,7 +23,7 @@ T swap_endian(T u)
   return dest.u;
 }
 
-std::vector<Note> MidiParser::parse(std::istream &strm)
+std::vector<MidiNote> MidiParser::parse(std::istream &strm)
 {
   currentTime_ = 0;
   notes_.clear();
@@ -127,14 +127,15 @@ void MidiParser::parseMidiEvents(std::istream &strm)
           currentStartTime_ = currentTime_;
         }
         else
-          notes_.push_back(Note(currentNote_ - 4 * 12,
-                                (currentTime_ - currentStartTime_) * tempo_ / tickPerBit_ / 1000,
-                                1ll * currentStartTime_ * tempo_ / tickPerBit_ / 1000));
+          notes_.push_back(
+            MidiNote(currentNote_ - 4 * 12,
+                     (currentTime_ - currentStartTime_) * tempo_ / tickPerBit_ / 1000,
+                     1ll * currentStartTime_ * tempo_ / tickPerBit_ / 1000));
       }
       else if (ch == 0x80)
-        notes_.push_back(Note(currentNote_ - 4 * 12,
-                              (currentTime_ - currentStartTime_) * tempo_ / tickPerBit_ / 1000,
-                              1ll * currentStartTime_ * tempo_ / tickPerBit_ / 1000));
+        notes_.push_back(MidiNote(currentNote_ - 4 * 12,
+                                  (currentTime_ - currentStartTime_) * tempo_ / tickPerBit_ / 1000,
+                                  1ll * currentStartTime_ * tempo_ / tickPerBit_ / 1000));
     }
     break;
     case 0xff: // meta event
