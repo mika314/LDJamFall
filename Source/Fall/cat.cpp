@@ -20,7 +20,7 @@ auto ACat::Tick(float dt) -> void
   auto mesh = GetSkeletalMeshComponent();
   const auto loc = GetActorLocation();
   const auto vel = mesh->GetPhysicsLinearVelocity();
-  mesh->AddImpulse(-80 * loc - 40.f * vel);
+  mesh->AddImpulse((-80 * loc - 40.f * vel) * 120 * dt);
 }
 
 auto ACat::down() -> void

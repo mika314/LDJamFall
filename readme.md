@@ -5,9 +5,9 @@ Rhythm Vertical Platformer like Geometry Dash.
 # TODO
 
 - [ ] tunes
-- [ ] multipliers
 - [ ] environment
 
+- [x] multipliers
 - [x] score
 - [x] midi parser
 - [x] cat is the character

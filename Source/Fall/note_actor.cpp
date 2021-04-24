@@ -5,8 +5,7 @@
 ANoteActor::ANoteActor()
 {
   PrimaryActorTick.bCanEverTick = true;
-  static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshFinder(
-    TEXT("/Engine/VREditor/BasicMeshes/SM_Ball_01"));
+  static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshFinder(TEXT("/Game/SM_Mouse"));
   GetStaticMeshComponent()->SetStaticMesh(staticMeshFinder.Object);
   GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
   GetStaticMeshComponent()->SetNotifyRigidBodyCollision(true);

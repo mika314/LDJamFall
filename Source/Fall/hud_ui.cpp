@@ -15,22 +15,42 @@ void UHudUi::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
   if (!gs)
     return;
 
-  auto scoreTb = getProp<UTextBlock>(this, TEXT("ScoreTb"));
-  if (!scoreTb)
-    return;
-
   {
-    auto total = gs->badN + gs->goodN;
+    auto percentTb = getProp<UTextBlock>(this, TEXT("PercentTb"));
+    if (!percentTb)
+      return;
+
     FFormatNamedArguments args;
-    if (total == 0)
-      args.Add("percent", NSLOCTEXT("Prj", "100.0", "100.0"));
-    else
     {
       FNumberFormattingOptions opt;
       opt.MaximumFractionalDigits = 1;
       opt.MinimumFractionalDigits = 1;
-      args.Add("percent", FText::AsNumber(100.f * gs->goodN / total, &opt));
+      args.Add("percent", FText::AsNumber(gs->getPercent(), &opt));
     }
-    scoreTb->SetText(FText::Format(NSLOCTEXT("prj", "Score", "Score: {percent}%"), args));
+    percentTb->SetText(FText::Format(NSLOCTEXT("prj", "Percent", "{percent}%"), args));
+  }
+  {
+    auto scoreTb = getProp<UTextBlock>(this, TEXT("ScoreTb"));
+    FFormatNamedArguments args;
+    {
+      args.Add("score", gs->getScore());
+    }
+    scoreTb->SetText(FText::Format(NSLOCTEXT("prj", "Score", "Score: {score}"), args));
+  }
+  {
+    auto comboTb = getProp<UTextBlock>(this, TEXT("ComboTb"));
+    FFormatNamedArguments args;
+    {
+      args.Add("combo", gs->getCombo());
+    }
+    comboTb->SetText(FText::Format(NSLOCTEXT("prj", "Combo", "Combo: {combo}"), args));
+  }
+  {
+    auto multiTb = getProp<UTextBlock>(this, TEXT("MultiTb"));
+    FFormatNamedArguments args;
+    {
+      args.Add("multi", gs->getMulti());
+    }
+    multiTb->SetText(FText::Format(NSLOCTEXT("prj", "Multi", "x{multi}"), args));
   }
 }
