@@ -22,22 +22,37 @@ auto APrjGameState::BeginPlay() -> void
   auto notes = MidiParser{}.parse(ss);
   static std::unordered_map<int, FVector> notesMap = {
     {-12, {300, 0, 0}},
-    {-9, {0, 0, 0}},
+    {-9, {0, 300, 0}},
     {-10, {0, -300, 0}},
   };
   for (auto n : notes)
   {
     LOG(n.note(), n.startTime(), n.duration());
+    auto it = notesMap.find(n.note());
+    if (it == std::end(notesMap))
+      continue;
     FActorSpawnParameters param;
     param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     GetWorld()->SpawnActor<ANoteActor>(ANoteActor::StaticClass(),
-                                       notesMap[n.note()] + FVector{.0f, .0f, -1.f * n.startTime()},
-                                       FRotator{},
+                                       it->second + FVector{.0f, .0f, -1.f * n.startTime() - 250},
+                                       FRotator{0, 0, 0},
                                        param);
   }
+  badN = 0;
+  goodN = 0;
 }
 
 auto APrjGameState::Tick(float dt) -> void
 {
   Super::Tick(dt);
+}
+
+auto APrjGameState::bad() -> void
+{
+  ++badN;
+}
+
+auto APrjGameState::good() -> void
+{
+  ++goodN;
 }

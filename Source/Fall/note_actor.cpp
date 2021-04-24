@@ -1,5 +1,6 @@
 #include "note_actor.h"
 #include "log.h"
+#include "prj_game_state.h"
 
 ANoteActor::ANoteActor()
 {
@@ -20,13 +21,25 @@ auto ANoteActor::BeginPlay() -> void
 auto ANoteActor::Tick(float dt) -> void
 {
   Super::Tick(dt);
+  auto gs = GetWorld()->GetGameState<APrjGameState>();
+  if (!gs)
+    return;
   const auto loc = GetActorLocation();
   SetActorLocation(loc + FVector{0, 0, dt * 1000.f});
+  if (loc.Z > 500)
+  {
+    Destroy();
+    gs->bad();
+  }
 }
 
 auto ANoteActor::onHit(AActor *me, AActor *other, FVector impact, const FHitResult &hitResult)
   -> void
 {
   LOG("me", me->GetName(), "other", other->GetName());
+  auto gs = GetWorld()->GetGameState<APrjGameState>();
+  if (!gs)
+    return;
   Destroy();
+  gs->good();
 }

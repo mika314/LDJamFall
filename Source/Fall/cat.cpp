@@ -27,23 +27,23 @@ auto ACat::down() -> void
 {
   auto mesh = GetSkeletalMeshComponent();
   const auto loc = GetActorLocation();
-  mesh->AddImpulse((FVector{-400, 0, 0} - loc) * 4000);
+  mesh->AddImpulse((FVector{-300, 0, 0} - loc) * 8000);
 }
 auto ACat::left() -> void
 {
   auto mesh = GetSkeletalMeshComponent();
   const auto loc = GetActorLocation();
-  mesh->AddImpulse((FVector{0, -400, 0} - loc) * 4000);
+  mesh->AddImpulse((FVector{0, -300, 0} - loc) * 8000);
 }
 auto ACat::right() -> void
 {
   auto mesh = GetSkeletalMeshComponent();
   const auto loc = GetActorLocation();
-  mesh->AddImpulse((FVector{0, 400, 0} - loc) * 4000);
+  mesh->AddImpulse((FVector{0, 300, 0} - loc) * 8000);
 }
 auto ACat::up() -> void
 {
   auto mesh = GetSkeletalMeshComponent();
   const auto loc = GetActorLocation();
-  mesh->AddImpulse((FVector{400, 0, 0} - loc) * 4000);
+  mesh->AddImpulse((FVector{300, 0, 0} - loc) * 8000);
 }

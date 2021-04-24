@@ -12,6 +12,11 @@ class FALL_API APrjGameState : public AGameStateBase
   GENERATED_BODY()
 public:
   APrjGameState();
+  auto bad() -> void;
+  auto good() -> void;
+
+  int badN = 0;
+  int goodN = 0;
 
 private:
   auto BeginPlay() -> void override;

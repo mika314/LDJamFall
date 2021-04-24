@@ -1,9 +1,13 @@
 # Idea
 
-Rythm Vertical Platformer like Geometry Dash.
+Rhythm Vertical Platformer like Geometry Dash.
 
 # TODO
 
-- [ ] midi parser
 - [ ] tunes
-- [ ] cat is the character
+- [ ] multipliers
+- [ ] environment
+
+- [x] score
+- [x] midi parser
+- [x] cat is the character
