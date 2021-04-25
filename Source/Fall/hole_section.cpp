@@ -17,5 +17,5 @@ auto AHoleSection::Tick(float dt) -> void
   if (loc.Z < 4000)
     SetActorLocation(loc + FVector{0, 0, dt * 1000.f});
   else
-    SetActorLocation(FVector{0, 0, -10000});
+    SetActorLocation(loc + FVector{0, 0, dt * 1000.f} + FVector{0, 0, -10000});
 }
