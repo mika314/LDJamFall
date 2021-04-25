@@ -25,6 +25,10 @@ APrjGameState::APrjGameState() : soundTrack(CreateDefaultSubobject<UAudioCompone
 auto APrjGameState::BeginPlay() -> void
 {
   Super::BeginPlay();
+  auto controller = UGameplayStatics::GetPlayerController(this, 0);
+  if (!controller)
+    return;
+  controller->ConsoleCommand(TEXT("t.MaxFPS 60"), true);
   static std::unordered_map<std::string, std::pair<unsigned char *, unsigned int>> levels = {
     {"?1e", {Assets_midi_level1e_mid, Assets_midi_level1e_mid_len}},
     {"?1n", {Assets_midi_level1n_mid, Assets_midi_level1n_mid_len}},
@@ -57,7 +61,6 @@ auto APrjGameState::BeginPlay() -> void
   };
   for (auto n : notes)
   {
-    LOG(n.note(), n.startTime(), n.duration());
     auto it = notesMap.find(n.note());
     if (it == std::end(notesMap))
       continue;
