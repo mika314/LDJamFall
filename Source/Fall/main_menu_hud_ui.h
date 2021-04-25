@@ -33,4 +33,6 @@ private:
   void onBack();
   UFUNCTION()
   void onQuit();
+  UFUNCTION()
+  void onHelp();
 };

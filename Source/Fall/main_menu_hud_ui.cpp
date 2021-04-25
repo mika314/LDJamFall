@@ -18,6 +18,14 @@ auto UMainMenuHudUi::uiSetupFinished() -> void
     btn->OnClicked.AddDynamic(this, &UMainMenuHudUi::onBack);
   }
   {
+    auto btn = getProp<UButton>(this, TEXT("Back2Btn"));
+    btn->OnClicked.AddDynamic(this, &UMainMenuHudUi::onBack);
+  }
+  {
+    auto btn = getProp<UButton>(this, TEXT("HelpBtn"));
+    btn->OnClicked.AddDynamic(this, &UMainMenuHudUi::onHelp);
+  }
+  {
     auto btn = getProp<UButton>(this, TEXT("QuitBtn"));
     btn->OnClicked.AddDynamic(this, &UMainMenuHudUi::onQuit);
   }
@@ -39,21 +47,26 @@ auto UMainMenuHudUi::uiSetupFinished() -> void
 auto UMainMenuHudUi::onPlay() -> void
 {
   auto switcher = getProp<UWidgetSwitcher>(this, TEXT("Switcher"));
-  auto levelSelectionPanel = getProp<UCanvasPanel>(this, TEXT("LevelSelectionPanel"));
-  switcher->SetActiveWidget(levelSelectionPanel);
+  switcher->SetActiveWidget(getProp<UCanvasPanel>(this, TEXT("LevelSelectionPanel")));
 }
 
 auto UMainMenuHudUi::onBack() -> void
 {
   auto switcher = getProp<UWidgetSwitcher>(this, TEXT("Switcher"));
-  auto mainMenuPanel = getProp<UCanvasPanel>(this, TEXT("MainMenuPanel"));
-  switcher->SetActiveWidget(mainMenuPanel);
+  switcher->SetActiveWidget(getProp<UCanvasPanel>(this, TEXT("MainMenuPanel")));
 }
 
 auto UMainMenuHudUi::onQuit() -> void
 {
   UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, false);
 }
+
+auto UMainMenuHudUi::onHelp() -> void
+{
+  auto switcher = getProp<UWidgetSwitcher>(this, TEXT("Switcher"));
+  switcher->SetActiveWidget(getProp<UCanvasPanel>(this, TEXT("HelpPanel")));
+}
+
 
 auto UMainMenuHudUi::onLevel1eBtn() -> void
 {
