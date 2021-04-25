@@ -55,6 +55,7 @@ auto ANoteActor::onHit(AActor *me, AActor *other, FVector impact, const FHitResu
   if (!Cast<ACat>(other))
     return;
   gs->good();
+  GetStaticMeshComponent()->SetCollisionProfileName(TEXT("NoCollision"));
   SetLifeSpan(3);
   explosion->Activate();
   isDied = true;

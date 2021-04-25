@@ -23,4 +23,14 @@ private:
   void onLevel1nBtn();
   UFUNCTION()
   void onLevel1hBtn();
+  UFUNCTION()
+  void onLevel2eBtn();
+  UFUNCTION()
+  void onLevel2nBtn();
+  UFUNCTION()
+  void onLevel2hBtn();
+  UFUNCTION()
+  void onBack();
+  UFUNCTION()
+  void onQuit();
 };

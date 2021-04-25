@@ -4,6 +4,9 @@
 #include "level1e_mid.h"
 #include "level1h_mid.h"
 #include "level1n_mid.h"
+#include "level2e_mid.h"
+#include "level2n_mid.h"
+#include "level2h_mid.h"
 #include "log.h"
 #include "midi_parser.h"
 #include "note_actor.h"
@@ -20,6 +23,12 @@ APrjGameState::APrjGameState() : soundTrack(CreateDefaultSubobject<UAudioCompone
     soundTracks["?1n"] = stFinder.Object;
     soundTracks["?1h"] = stFinder.Object;
   }
+  {
+    static ConstructorHelpers::FObjectFinder<USoundBase> stFinder(TEXT("/Game/ST_Level2"));
+    soundTracks["?2e"] = stFinder.Object;
+    soundTracks["?2n"] = stFinder.Object;
+    soundTracks["?2h"] = stFinder.Object;
+  }
 }
 
 auto APrjGameState::BeginPlay() -> void
@@ -33,6 +42,9 @@ auto APrjGameState::BeginPlay() -> void
     {"?1e", {Assets_midi_level1e_mid, Assets_midi_level1e_mid_len}},
     {"?1n", {Assets_midi_level1n_mid, Assets_midi_level1n_mid_len}},
     {"?1h", {Assets_midi_level1h_mid, Assets_midi_level1h_mid_len}},
+    {"?2e", {Assets_midi_level2e_mid, Assets_midi_level2e_mid_len}},
+    {"?2n", {Assets_midi_level2n_mid, Assets_midi_level2n_mid_len}},
+    {"?2h", {Assets_midi_level2h_mid, Assets_midi_level2h_mid_len}},
   };
 
   LOG("reading midi", UGameplayStatics::GetGameMode(this)->OptionsString);
