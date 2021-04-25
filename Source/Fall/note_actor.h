@@ -14,7 +14,11 @@ public:
   auto BeginPlay() -> void override;
   auto Tick(float) -> void override;
 
+  UPROPERTY(EditAnywhere)
+  class UParticleSystemComponent *explosion = nullptr;
+
 private:
   UFUNCTION()
   void onHit(AActor *me, AActor *other, FVector impact, const FHitResult &hitResult);
+  bool isDied = false;
 };

@@ -1,7 +1,9 @@
 // Copyright (c) 2021 Mika Pi
 
 #include "prj_game_state.h"
+#include "level1e_mid.h"
 #include "level1n_mid.h"
+#include "level1h_mid.h"
 #include "log.h"
 #include "midi_parser.h"
 #include "note_actor.h"
@@ -17,8 +19,8 @@ auto APrjGameState::BeginPlay() -> void
 {
   Super::BeginPlay();
   LOG("reading midi");
-  std::string mid{reinterpret_cast<const char *>(Assets_midi_level1n_mid),
-                  Assets_midi_level1n_mid_len};
+  std::string mid{reinterpret_cast<const char *>(Assets_midi_level1h_mid),
+                  Assets_midi_level1h_mid_len};
   std::istringstream ss(mid);
   auto notes = MidiParser{}.parse(ss);
   static std::unordered_map<int, FVector> notesMap = {
