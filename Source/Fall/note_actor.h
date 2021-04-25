@@ -15,7 +15,7 @@ public:
   auto Tick(float) -> void override;
 
   UPROPERTY(EditAnywhere)
-  class UParticleSystemComponent *explosion = nullptr;
+  class UMaterialInterface *transparent = nullptr;
 
 private:
   UFUNCTION()

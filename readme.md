@@ -5,8 +5,8 @@ Rhythm Vertical Platformer like Geometry Dash.
 # TODO
 
 - [ ] environment
-- [ ] make mouse transparent on hit
 - [ ] add restart level button
+- [ ] play around with explosion
 
 - [x] risers
 - [x] tunes
@@ -14,3 +14,4 @@ Rhythm Vertical Platformer like Geometry Dash.
 - [x] score
 - [x] midi parser
 - [x] cat is the character
+- [x] make mouse transparent on hit

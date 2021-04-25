@@ -2,10 +2,11 @@
 #include "cat.h"
 #include "log.h"
 #include "prj_game_state.h"
+#include <Materials/MaterialInterface.h>
 #include <Particles/ParticleSystem.h>
 #include <Particles/ParticleSystemComponent.h>
 
-ANoteActor::ANoteActor() : explosion(CreateDefaultSubobject<UParticleSystemComponent>("explosion"))
+ANoteActor::ANoteActor()
 {
   PrimaryActorTick.bCanEverTick = true;
   static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshFinder(TEXT("/Game/SM_Mouse"));
@@ -13,12 +14,11 @@ ANoteActor::ANoteActor() : explosion(CreateDefaultSubobject<UParticleSystemCompo
   GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
   GetStaticMeshComponent()->SetNotifyRigidBodyCollision(true);
 
-  explosion->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-  static ConstructorHelpers::FObjectFinder<UParticleSystem> psFinder(
-    TEXT("/Engine/Tutorial/SubEditors/TutorialAssets/TutorialParticleSystem"));
-
-  explosion->SetTemplate(psFinder.Object);
-  explosion->SetAutoActivate(false);
+  {
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> materialFinder(
+      TEXT("/Game/M_Transparent.M_Transparent"));
+    transparent = materialFinder.Object;
+  }
 }
 
 auto ANoteActor::BeginPlay() -> void
@@ -55,8 +55,9 @@ auto ANoteActor::onHit(AActor *me, AActor *other, FVector impact, const FHitResu
   if (!Cast<ACat>(other))
     return;
   gs->good();
-  GetStaticMeshComponent()->SetCollisionProfileName(TEXT("NoCollision"));
+  auto mesh = GetStaticMeshComponent();
+  mesh->SetCollisionProfileName(TEXT("NoCollision"));
+  mesh->SetMaterial(0, transparent);
   SetLifeSpan(3);
-  explosion->Activate();
   isDied = true;
 }
