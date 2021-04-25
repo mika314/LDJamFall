@@ -99,6 +99,10 @@ auto UHudUi::uiSetupFinished() -> void
     auto btn = getProp<UButton>(this, TEXT("QuitBtn"));
     btn->OnClicked.AddDynamic(this, &UHudUi::onQuit);
   }
+  {
+    auto btn = getProp<UButton>(this, TEXT("RestartBtn"));
+    btn->OnClicked.AddDynamic(this, &UHudUi::onRestart);
+  }
 }
 
 auto UHudUi::onMainMenu() -> void
@@ -135,4 +139,12 @@ auto UHudUi::pause() -> void
     return;
   playerController->SetInputMode(FInputModeUIOnly{});
   playerController->bShowMouseCursor = true;
+}
+
+auto UHudUi::onRestart() -> void
+{
+  UGameplayStatics::OpenLevel(this,
+                              FName(*GetWorld()->GetName()),
+                              false,
+                              UGameplayStatics::GetGameMode(this)->OptionsString.Mid(1));
 }

@@ -26,4 +26,6 @@ private:
   void onResume();
   UFUNCTION()
   void onQuit();
+  UFUNCTION()
+  void onRestart();
 };
