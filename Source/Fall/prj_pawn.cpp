@@ -1,6 +1,7 @@
 #include "prj_pawn.h"
 #include "cat.h"
 #include "log.h"
+#include "prj_hud.h"
 
 APrjPawn::APrjPawn() : root(CreateDefaultSubobject<USceneComponent>("root"))
 {
@@ -30,25 +31,33 @@ auto APrjPawn::SetupPlayerInputComponent(class UInputComponent *in) -> void
   in->BindAction("Left", IE_Pressed, this, &APrjPawn::left);
   in->BindAction("Right", IE_Pressed, this, &APrjPawn::right);
   in->BindAction("Up", IE_Pressed, this, &APrjPawn::up);
+  in->BindAction("Pause", IE_Pressed, this, &APrjPawn::pause);
 }
 
 auto APrjPawn::down() -> void
 {
-  LOG("down");
   cat->down();
 }
+
 auto APrjPawn::left() -> void
 {
-  LOG("left");
   cat->left();
 }
+
 auto APrjPawn::right() -> void
 {
-  LOG("right");
   cat->right();
 }
+
 auto APrjPawn::up() -> void
 {
-  LOG("up");
   cat->up();
+}
+
+auto APrjPawn::pause() -> void
+{
+  auto hud = Cast<APlayerController>(GetController())->GetHUD<APrjHud>();
+  if (!hud)
+    return;
+  hud->pause();
 }

@@ -20,14 +20,9 @@ auto APrjHud::BeginPlay() -> void
     return;
   playerController->SetInputMode(FInputModeGameOnly{});
   playerController->bShowMouseCursor = false;
-
-  //  pauseUi = CreateWidget<UPauseUi>(GetWorld(), pauseUiClass);
-  //  pauseUi->AddToViewport();
-  //  pauseUi->SetVisibility(ESlateVisibility::Hidden);
-  //  pauseUi->loadSettings();
 }
 
-// auto APrjHud::showPause(class UInwards &val) -> void
-//{
-//  pauseUi->show(val);
-//}
+auto APrjHud::pause() -> void
+{
+  hudUi->pause();
+}

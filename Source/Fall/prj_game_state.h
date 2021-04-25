@@ -3,6 +3,8 @@
 #pragma once
 #include <CoreMinimal.h>
 #include <GameFramework/GameStateBase.h>
+#include <string>
+#include <unordered_map>
 
 #include "prj_game_state.generated.h"
 
@@ -19,6 +21,9 @@ public:
   auto getPercent() const -> float;
   auto getCombo() const -> int;
 
+  UPROPERTY(EditAnywhere)
+  class UAudioComponent *soundTrack = nullptr;
+
 private:
   auto BeginPlay() -> void override;
   auto Tick(float) -> void override;
@@ -26,4 +31,5 @@ private:
   int goodN = 0;
   int combo = 0;
   int score = 0;
+  std::unordered_map<std::string, class USoundBase *> soundTracks;
 };

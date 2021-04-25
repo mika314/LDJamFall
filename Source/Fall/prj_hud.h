@@ -13,11 +13,10 @@ class FALL_API APrjHud : public AHUD
   GENERATED_BODY()
 public:
   APrjHud();
-  //  auto showPause(class UInwards &) -> void;
+  auto pause() -> void;
 
 private:
   auto BeginPlay() -> void override;
 
   class UHudUi *hudUi = nullptr;
-  //  class UPauseUi *pauseUi = nullptr;
 };

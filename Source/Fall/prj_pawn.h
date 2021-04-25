@@ -19,6 +19,7 @@ private:
   auto BeginPlay() -> void;
   auto down() -> void;
   auto left() -> void;
+  auto pause() -> void;
   auto right() -> void;
   auto up() -> void;
 

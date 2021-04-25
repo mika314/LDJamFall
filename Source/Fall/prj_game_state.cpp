@@ -2,27 +2,54 @@
 
 #include "prj_game_state.h"
 #include "level1e_mid.h"
-#include "level1n_mid.h"
 #include "level1h_mid.h"
+#include "level1n_mid.h"
 #include "log.h"
 #include "midi_parser.h"
 #include "note_actor.h"
+#include <Components/AudioComponent.h>
+#include <Kismet/GameplayStatics.h>
 #include <sstream>
-#include <unordered_map>
 
-APrjGameState::APrjGameState()
+APrjGameState::APrjGameState() : soundTrack(CreateDefaultSubobject<UAudioComponent>("soundTrack"))
 {
   PrimaryActorTick.bCanEverTick = true;
+  {
+    static ConstructorHelpers::FObjectFinder<USoundBase> stFinder(TEXT("/Game/ST_Level1"));
+    soundTracks["?1e"] = stFinder.Object;
+    soundTracks["?1n"] = stFinder.Object;
+    soundTracks["?1h"] = stFinder.Object;
+  }
 }
 
 auto APrjGameState::BeginPlay() -> void
 {
   Super::BeginPlay();
-  LOG("reading midi");
-  std::string mid{reinterpret_cast<const char *>(Assets_midi_level1h_mid),
-                  Assets_midi_level1h_mid_len};
-  std::istringstream ss(mid);
-  auto notes = MidiParser{}.parse(ss);
+  static std::unordered_map<std::string, std::pair<unsigned char *, unsigned int>> levels = {
+    {"?1e", {Assets_midi_level1e_mid, Assets_midi_level1e_mid_len}},
+    {"?1n", {Assets_midi_level1n_mid, Assets_midi_level1n_mid_len}},
+    {"?1h", {Assets_midi_level1h_mid, Assets_midi_level1h_mid_len}},
+  };
+
+  LOG("reading midi", UGameplayStatics::GetGameMode(this)->OptionsString);
+
+  const std::string opt = TCHAR_TO_UTF8(*UGameplayStatics::GetGameMode(this)->OptionsString);
+  {
+    auto it = soundTracks.find(opt);
+    if (it == std::end(soundTracks))
+      it = soundTracks.begin();
+    soundTrack->SetSound(it->second);
+    soundTrack->Play();
+  }
+
+  const auto notes = [this, &opt]() {
+    auto it = levels.find(opt);
+    if (it == std::end(levels))
+      it = levels.begin();
+    std::string mid{reinterpret_cast<const char *>(it->second.first), it->second.second};
+    std::istringstream ss(mid);
+    return MidiParser{}.parse(ss);
+  }();
   static std::unordered_map<int, FVector> notesMap = {
     {-12, {300, 0, 0}},
     {-9, {0, 300, 0}},

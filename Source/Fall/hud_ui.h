@@ -13,4 +13,17 @@ class FALL_API UHudUi : public UUserWidget
   GENERATED_BODY()
 public:
   auto NativeTick(const FGeometry &MyGeometry, float InDeltaTime) -> void override;
+
+  UFUNCTION(BlueprintCallable)
+  void uiSetupFinished();
+
+  auto pause() -> void;
+
+private:
+  UFUNCTION()
+  void onMainMenu();
+  UFUNCTION()
+  void onResume();
+  UFUNCTION()
+  void onQuit();
 };
