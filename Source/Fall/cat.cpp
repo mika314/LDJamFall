@@ -4,8 +4,7 @@
 ACat::ACat()
 {
   PrimaryActorTick.bCanEverTick = true;
-  ConstructorHelpers::FObjectFinder<USkeletalMesh> meshFinder(
-    TEXT("/Game/LowPoly_Cat/Meshes/Mesh_Cat_white"));
+  ConstructorHelpers::FObjectFinder<USkeletalMesh> meshFinder(TEXT("/Game/SK_Cat"));
   auto mesh = GetSkeletalMeshComponent();
   mesh->SetSkeletalMesh(meshFinder.Object);
   mesh->SetCollisionProfileName(TEXT("Ragdoll"));
