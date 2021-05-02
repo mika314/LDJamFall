@@ -79,7 +79,7 @@ auto APrjGameState::BeginPlay() -> void
     FActorSpawnParameters param;
     param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     GetWorld()->SpawnActor<ANoteActor>(ANoteActor::StaticClass(),
-                                       it->second + FVector{.0f, .0f, -1.f * n.startTime() - 250},
+                                       it->second + FVector{.0f, .0f, -1.f * n.startTime() - 125},
                                        FRotator{0, 1.f * (rand() % 360), 0},
                                        param);
   }
